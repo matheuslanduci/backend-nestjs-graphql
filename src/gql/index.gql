@@ -1,0 +1,60 @@
+type Post {
+  id: Int!
+  title: String!
+  description: String!
+  author: Author!
+  authorId: Int!
+  content: String!
+}
+
+input NewPostInput {
+  title: String!
+  description: String!
+  authorId: Int!
+  content: String!
+}
+
+input UpdatePostInput {
+  id: Int!
+  title: String
+  description: String
+  content: String
+}
+
+type Author {
+  id: Int!
+  name: String!
+  birthDate: String!
+  posts: [Post!]!
+}
+
+input NewAuthorInput {
+  name: String!
+  birthDate: String!
+}
+
+input UpdateAuthorInput {
+  id: Int!
+  birthDate: String!
+}
+
+type Query {
+  findPostsByAuthorId(authorId: Int!): [Post!]!
+  findPostById(postId: Int!): Post!
+  findAllPosts: [Post!]!
+  findAuthorById(authorId: Int!): Author
+}
+
+type Mutation {
+  createAuthor(author: NewAuthorInput!): Author!
+  updateAuthor(author: UpdateAuthorInput!): Author!
+  deleteAuthor(authorId: Int!): Author!
+  createPost(post: NewPostInput!): Post!
+  updatePost(post: UpdatePostInput!): Post!
+  deletePost(postId: Int!): Post!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
